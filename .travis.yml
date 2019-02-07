@@ -6,4 +6,5 @@ env:
   global: 
     - GO111MODULE=on
 script:
-  - go test
+  - go test -race -parallel 50 -v `go list ./... | grep -v /vendor/`
+  - go clean && go build -ldflags="-s -w"

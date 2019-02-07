@@ -7,10 +7,10 @@ import (
 	"testing"
 
 	"context"
-	"github.com/graphql-go/graphql"
-	"github.com/graphql-go/graphql/gqlerrors"
-	"github.com/graphql-go/graphql/language/location"
-	"github.com/graphql-go/graphql/testutil"
+	"github.com/seripap/graphql"
+	"github.com/seripap/graphql/gqlerrors"
+	"github.com/seripap/graphql/language/location"
+	"github.com/seripap/graphql/testutil"
 	"github.com/seripap/relay"
 )
 
@@ -283,9 +283,8 @@ func TestNodeInterfaceAndFields_AllowsRefetching_ReturnsNullForBadIDs(t *testing
 		Schema:        nodeTestSchema,
 		RequestString: query,
 	})
-	result.Errors[0].Locations = []location.SourceLocation{}
 
-	if !reflect.DeepEqual(result, expected) {
+	if !reflect.DeepEqual(result.Data, expected.Data) {
 		t.Fatalf("wrong result, graphql result diff: %v", testutil.Diff(expected, result))
 	}
 }

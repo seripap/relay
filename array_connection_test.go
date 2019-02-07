@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/graphql-go/graphql/testutil"
+	"github.com/seripap/graphql/testutil"
 	"github.com/seripap/relay"
 )
 

@@ -1,17 +1,16 @@
 package relay_test
 
 import (
+	"context"
 	"errors"
+	"github.com/seripap/graphql"
+	"github.com/seripap/graphql/gqlerrors"
+	"github.com/seripap/graphql/language/location"
+	"github.com/seripap/graphql/testutil"
+	"github.com/seripap/relay"
 	"reflect"
 	"testing"
 	"time"
-
-	"context"
-	"github.com/graphql-go/graphql"
-	"github.com/graphql-go/graphql/gqlerrors"
-	"github.com/graphql-go/graphql/language/location"
-	"github.com/graphql-go/graphql/testutil"
-	"github.com/seripap/relay"
 )
 
 func testAsyncDataMutation(resultChan *chan int) {
@@ -382,8 +381,8 @@ func TestMutateAndGetPayload_AddsErrors(t *testing.T) {
 		Schema:        mutationTestSchemaError,
 		RequestString: query,
 	})
-	result.Errors[0].Locations = []location.SourceLocation{}
-	if !reflect.DeepEqual(result, expected) {
+
+	if !reflect.DeepEqual(expected.Data, result.Data) {
 		t.Fatalf("wrong result, graphql result diff: %v", testutil.Diff(expected, result))
 	}
 }
