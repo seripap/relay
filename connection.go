@@ -1,6 +1,6 @@
 package relay
 
-import "github.com/seripap/graphql"
+import "github.com/graphql-go/graphql"
 
 /*
 Returns a GraphQLFieldConfigArgumentMap appropriate to include

@@ -2,7 +2,7 @@ package relay
 
 import (
 	"context"
-	"github.com/seripap/graphql"
+	"github.com/graphql-go/graphql"
 )
 
 type MutationFn func(inputMap map[string]interface{}, info graphql.ResolveInfo, ctx context.Context) (map[string]interface{}, error)

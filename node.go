@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/seripap/graphql"
+	"github.com/graphql-go/graphql"
 )
 
 type NodeDefinitions struct {
