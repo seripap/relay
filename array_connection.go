@@ -65,17 +65,21 @@ func ConnectionFromArraySlice(
 	end := len(arraySlice) - (sliceEnd - endOffset)
 
 	if begin > end {
-		return NewConnection()
+		conn := NewConnection()
+		conn.TotalCount = len(arraySlice)
+		return conn
 	}
 
 	slice := arraySlice[begin:end]
 
 	edges := []*Edge{}
+	nodes := []interface{}{}
 	for index, value := range slice {
 		edges = append(edges, &Edge{
 			Cursor: OffsetToCursor(startOffset + index),
 			Node:   value,
 		})
+		nodes = append(nodes, value)
 	}
 
 	var firstEdgeCursor, lastEdgeCursor ConnectionCursor
@@ -106,12 +110,14 @@ func ConnectionFromArraySlice(
 
 	conn := NewConnection()
 	conn.Edges = edges
+	conn.Nodes = nodes
 	conn.PageInfo = PageInfo{
 		StartCursor:     firstEdgeCursor,
 		EndCursor:       lastEdgeCursor,
 		HasPreviousPage: hasPreviousPage,
 		HasNextPage:     hasNextPage,
 	}
+	conn.TotalCount = len(arraySlice)
 
 	return conn
 }

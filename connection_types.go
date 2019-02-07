@@ -14,14 +14,18 @@ type PageInfo struct {
 }
 
 type Connection struct {
-	Edges    []*Edge  `json:"edges"`
-	PageInfo PageInfo `json:"pageInfo"`
+	Edges      []*Edge       `json:"edges"`
+	Nodes      []interface{} `json:"nodes"`
+	PageInfo   PageInfo      `json:"pageInfo"`
+	TotalCount int           `json:"totalCount"`
 }
 
 func NewConnection() *Connection {
 	return &Connection{
-		Edges:    []*Edge{},
-		PageInfo: PageInfo{},
+		Edges:      []*Edge{},
+		Nodes:      []interface{}{},
+		PageInfo:   PageInfo{},
+		TotalCount: 0,
 	}
 }
 

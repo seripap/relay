@@ -6,12 +6,12 @@ import (
 	"testing"
 	"time"
 
+	"context"
 	"github.com/graphql-go/graphql"
 	"github.com/graphql-go/graphql/gqlerrors"
 	"github.com/graphql-go/graphql/language/location"
 	"github.com/graphql-go/graphql/testutil"
-	"github.com/graphql-go/relay"
-	"golang.org/x/net/context"
+	"github.com/seripap/relay"
 )
 
 func testAsyncDataMutation(resultChan *chan int) {
@@ -374,6 +374,7 @@ func TestMutateAndGetPayload_AddsErrors(t *testing.T) {
 			gqlerrors.FormattedError{
 				Message:   NotFoundError.Error(),
 				Locations: []location.SourceLocation{},
+				Path:      []interface{}{"simpleMutation"},
 			},
 		},
 	}
@@ -381,6 +382,7 @@ func TestMutateAndGetPayload_AddsErrors(t *testing.T) {
 		Schema:        mutationTestSchemaError,
 		RequestString: query,
 	})
+	result.Errors[0].Locations = []location.SourceLocation{}
 	if !reflect.DeepEqual(result, expected) {
 		t.Fatalf("wrong result, graphql result diff: %v", testutil.Diff(expected, result))
 	}

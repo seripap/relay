@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/graphql-go/graphql/testutil"
-	"github.com/graphql-go/relay"
+	"github.com/seripap/relay"
 )
 
 var arrayConnectionTestLetters = []interface{}{
@@ -38,12 +38,14 @@ func TestConnectionFromArray_HandlesBasicSlicing_ReturnsAllElementsWithoutFilter
 				Cursor: "YXJyYXljb25uZWN0aW9uOjQ=",
 			},
 		},
+		Nodes: arrayConnectionTestLetters,
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjA=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjQ=",
 			HasPreviousPage: false,
 			HasNextPage:     false,
 		},
+		TotalCount: len(arrayConnectionTestLetters),
 	}
 
 	result := relay.ConnectionFromArray(arrayConnectionTestLetters, args)
@@ -74,12 +76,14 @@ func TestConnectionFromArray_HandlesBasicSlicing_RespectsASmallerFirst(t *testin
 				Cursor: "YXJyYXljb25uZWN0aW9uOjE=",
 			},
 		},
+		Nodes: []interface{}{"A", "B"},
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjA=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjE=",
 			HasPreviousPage: false,
 			HasNextPage:     true,
 		},
+		TotalCount: len(arrayConnectionTestLetters),
 	}
 
 	result := relay.ConnectionFromArray(arrayConnectionTestLetters, args)
@@ -117,12 +121,14 @@ func TestConnectionFromArray_HandlesBasicSlicing_RespectsAnOverlyLargeFirst(t *t
 				Cursor: "YXJyYXljb25uZWN0aW9uOjQ=",
 			},
 		},
+		Nodes: arrayConnectionTestLetters,
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjA=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjQ=",
 			HasPreviousPage: false,
 			HasNextPage:     false,
 		},
+		TotalCount: len(arrayConnectionTestLetters),
 	}
 
 	result := relay.ConnectionFromArray(arrayConnectionTestLetters, args)
@@ -148,12 +154,14 @@ func TestConnectionFromArray_HandlesBasicSlicing_RespectsASmallerLast(t *testing
 				Cursor: "YXJyYXljb25uZWN0aW9uOjQ=",
 			},
 		},
+		Nodes: []interface{}{"D", "E"},
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjM=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjQ=",
 			HasPreviousPage: true,
 			HasNextPage:     false,
 		},
+		TotalCount: len(arrayConnectionTestLetters),
 	}
 
 	result := relay.ConnectionFromArray(arrayConnectionTestLetters, args)
@@ -191,12 +199,14 @@ func TestConnectionFromArray_HandlesBasicSlicing_RespectsAnOverlyLargeLast(t *te
 				Cursor: "YXJyYXljb25uZWN0aW9uOjQ=",
 			},
 		},
+		Nodes: arrayConnectionTestLetters,
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjA=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjQ=",
 			HasPreviousPage: false,
 			HasNextPage:     false,
 		},
+		TotalCount: len(arrayConnectionTestLetters),
 	}
 
 	result := relay.ConnectionFromArray(arrayConnectionTestLetters, args)
@@ -224,12 +234,14 @@ func TestConnectionFromArray_HandlesPagination_RespectsFirstAndAfter(t *testing.
 				Cursor: "YXJyYXljb25uZWN0aW9uOjM=",
 			},
 		},
+		Nodes: []interface{}{"C", "D"},
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjI=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjM=",
 			HasPreviousPage: false,
 			HasNextPage:     true,
 		},
+		TotalCount: len(arrayConnectionTestLetters),
 	}
 
 	result := relay.ConnectionFromArray(arrayConnectionTestLetters, args)
@@ -260,12 +272,14 @@ func TestConnectionFromArray_HandlesPagination_RespectsFirstAndAfterWithLongFirs
 				Cursor: "YXJyYXljb25uZWN0aW9uOjQ=",
 			},
 		},
+		Nodes: []interface{}{"C", "D", "E"},
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjI=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjQ=",
 			HasPreviousPage: false,
 			HasNextPage:     false,
 		},
+		TotalCount: len(arrayConnectionTestLetters),
 	}
 
 	result := relay.ConnectionFromArray(arrayConnectionTestLetters, args)
@@ -291,12 +305,14 @@ func TestConnectionFromArray_HandlesPagination_RespectsLastAndBefore(t *testing.
 				Cursor: "YXJyYXljb25uZWN0aW9uOjI=",
 			},
 		},
+		Nodes: []interface{}{"B", "C"},
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjE=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjI=",
 			HasPreviousPage: true,
 			HasNextPage:     false,
 		},
+		TotalCount: len(arrayConnectionTestLetters),
 	}
 
 	result := relay.ConnectionFromArray(arrayConnectionTestLetters, args)
@@ -326,12 +342,14 @@ func TestConnectionFromArray_HandlesPagination_RespectsLastAndBeforeWithLongLast
 				Cursor: "YXJyYXljb25uZWN0aW9uOjI=",
 			},
 		},
+		Nodes: []interface{}{"A", "B", "C"},
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjA=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjI=",
 			HasPreviousPage: false,
 			HasNextPage:     false,
 		},
+		TotalCount: len(arrayConnectionTestLetters),
 	}
 
 	result := relay.ConnectionFromArray(arrayConnectionTestLetters, args)
@@ -358,12 +376,14 @@ func TestConnectionFromArray_HandlesPagination_RespectsFirstAndAfterAndBefore_To
 				Cursor: "YXJyYXljb25uZWN0aW9uOjI=",
 			},
 		},
+		Nodes: []interface{}{"B", "C"},
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjE=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjI=",
 			HasPreviousPage: false,
 			HasNextPage:     true,
 		},
+		TotalCount: len(arrayConnectionTestLetters),
 	}
 
 	result := relay.ConnectionFromArray(arrayConnectionTestLetters, args)
@@ -394,12 +414,14 @@ func TestConnectionFromArray_HandlesPagination_RespectsFirstAndAfterAndBefore_To
 				Cursor: "YXJyYXljb25uZWN0aW9uOjM=",
 			},
 		},
+		Nodes: []interface{}{"B", "C", "D"},
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjE=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjM=",
 			HasPreviousPage: false,
 			HasNextPage:     false,
 		},
+		TotalCount: len(arrayConnectionTestLetters),
 	}
 
 	result := relay.ConnectionFromArray(arrayConnectionTestLetters, args)
@@ -430,12 +452,14 @@ func TestConnectionFromArray_HandlesPagination_RespectsFirstAndAfterAndBefore_Ex
 				Cursor: "YXJyYXljb25uZWN0aW9uOjM=",
 			},
 		},
+		Nodes: []interface{}{"B", "C", "D"},
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjE=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjM=",
 			HasPreviousPage: false,
 			HasNextPage:     false,
 		},
+		TotalCount: len(arrayConnectionTestLetters),
 	}
 
 	result := relay.ConnectionFromArray(arrayConnectionTestLetters, args)
@@ -462,12 +486,14 @@ func TestConnectionFromArray_HandlesPagination_RespectsLastAndAfterAndBefore_Too
 				Cursor: "YXJyYXljb25uZWN0aW9uOjM=",
 			},
 		},
+		Nodes: []interface{}{"C", "D"},
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjI=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjM=",
 			HasPreviousPage: true,
 			HasNextPage:     false,
 		},
+		TotalCount: len(arrayConnectionTestLetters),
 	}
 
 	result := relay.ConnectionFromArray(arrayConnectionTestLetters, args)
@@ -498,12 +524,14 @@ func TestConnectionFromArray_HandlesPagination_RespectsLasttAndAfterAndBefore_To
 				Cursor: "YXJyYXljb25uZWN0aW9uOjM=",
 			},
 		},
+		Nodes: []interface{}{"B", "C", "D"},
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjE=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjM=",
 			HasPreviousPage: false,
 			HasNextPage:     false,
 		},
+		TotalCount: len(arrayConnectionTestLetters),
 	}
 
 	result := relay.ConnectionFromArray(arrayConnectionTestLetters, args)
@@ -534,12 +562,14 @@ func TestConnectionFromArray_HandlesPagination_RespectsLastAndAfterAndBefore_Exa
 				Cursor: "YXJyYXljb25uZWN0aW9uOjM=",
 			},
 		},
+		Nodes: []interface{}{"B", "C", "D"},
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjE=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjM=",
 			HasPreviousPage: false,
 			HasNextPage:     false,
 		},
+		TotalCount: len(arrayConnectionTestLetters),
 	}
 
 	result := relay.ConnectionFromArray(arrayConnectionTestLetters, args)
@@ -556,10 +586,12 @@ func TestConnectionFromArray_HandlesCursorEdgeCases_ReturnsNoElementsIfFirstIsZe
 
 	expected := &relay.Connection{
 		Edges: []*relay.Edge{},
+		Nodes: []interface{}{},
 		PageInfo: relay.PageInfo{
 			HasPreviousPage: false,
 			HasNextPage:     true,
 		},
+		TotalCount: len(arrayConnectionTestLetters),
 	}
 
 	result := relay.ConnectionFromArray(arrayConnectionTestLetters, args)
@@ -597,12 +629,14 @@ func TestConnectionFromArray_HandlesCursorEdgeCases_ReturnsAllElementsIfCursorsA
 				Cursor: "YXJyYXljb25uZWN0aW9uOjQ=",
 			},
 		},
+		Nodes: arrayConnectionTestLetters,
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjA=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjQ=",
 			HasPreviousPage: false,
 			HasNextPage:     false,
 		},
+		TotalCount: len(arrayConnectionTestLetters),
 	}
 
 	result := relay.ConnectionFromArray(arrayConnectionTestLetters, args)
@@ -640,12 +674,14 @@ func TestConnectionFromArray_HandlesCursorEdgeCases_ReturnsAllElementsIfCursorsA
 				Cursor: "YXJyYXljb25uZWN0aW9uOjQ=",
 			},
 		},
+		Nodes: arrayConnectionTestLetters,
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjA=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjQ=",
 			HasPreviousPage: false,
 			HasNextPage:     false,
 		},
+		TotalCount: len(arrayConnectionTestLetters),
 	}
 
 	result := relay.ConnectionFromArray(arrayConnectionTestLetters, args)
@@ -662,8 +698,10 @@ func TestConnectionFromArray_HandlesCursorEdgeCases_ReturnsNullIfCursorsIsConsec
 	args := relay.NewConnectionArguments(filter)
 
 	expected := &relay.Connection{
-		Edges:    []*relay.Edge{},
-		PageInfo: relay.PageInfo{},
+		Edges:      []*relay.Edge{},
+		Nodes:      []interface{}{},
+		PageInfo:   relay.PageInfo{},
+		TotalCount: len(arrayConnectionTestLetters),
 	}
 
 	result := relay.ConnectionFromArray(arrayConnectionTestLetters, args)
@@ -679,8 +717,10 @@ func TestConnectionFromArray_HandlesCursorEdgeCases_ReturnsNoElementsIfCursorsCr
 	args := relay.NewConnectionArguments(filter)
 
 	expected := &relay.Connection{
-		Edges:    []*relay.Edge{},
-		PageInfo: relay.PageInfo{},
+		Edges:      []*relay.Edge{},
+		Nodes:      []interface{}{},
+		PageInfo:   relay.PageInfo{},
+		TotalCount: len(arrayConnectionTestLetters),
 	}
 
 	result := relay.ConnectionFromArray(arrayConnectionTestLetters, args)
@@ -720,12 +760,14 @@ func TestConnectionFromArraySlice_JustRightArraySlice(t *testing.T) {
 				Cursor: "YXJyYXljb25uZWN0aW9uOjI=",
 			},
 		},
+		Nodes: []interface{}{"B", "C"},
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjE=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjI=",
 			HasPreviousPage: false,
 			HasNextPage:     true,
 		},
+		TotalCount: len(arrayConnectionTestLetters[1:3]),
 	}
 
 	result := relay.ConnectionFromArraySlice(
@@ -759,12 +801,14 @@ func TestConnectionFromArraySlice_OversizedSliceLeft(t *testing.T) {
 				Cursor: "YXJyYXljb25uZWN0aW9uOjI=",
 			},
 		},
+		Nodes: []interface{}{"B", "C"},
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjE=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjI=",
 			HasPreviousPage: false,
 			HasNextPage:     true,
 		},
+		TotalCount: len(arrayConnectionTestLetters[0:3]),
 	}
 
 	result := relay.ConnectionFromArraySlice(
@@ -794,12 +838,14 @@ func TestConnectionFromArraySlice_OversizedSliceRight(t *testing.T) {
 				Cursor: "YXJyYXljb25uZWN0aW9uOjI=",
 			},
 		},
+		Nodes: []interface{}{"C"},
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjI=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjI=",
 			HasPreviousPage: false,
 			HasNextPage:     true,
 		},
+		TotalCount: len(arrayConnectionTestLetters[2:4]),
 	}
 
 	result := relay.ConnectionFromArraySlice(
@@ -829,12 +875,14 @@ func TestConnectionFromArraySlice_OversizedSliceBoth(t *testing.T) {
 				Cursor: "YXJyYXljb25uZWN0aW9uOjI=",
 			},
 		},
+		Nodes: []interface{}{"C"},
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjI=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjI=",
 			HasPreviousPage: false,
 			HasNextPage:     true,
 		},
+		TotalCount: len(arrayConnectionTestLetters[1:4]),
 	}
 
 	result := relay.ConnectionFromArraySlice(
@@ -868,12 +916,14 @@ func TestConnectionFromArraySlice_UndersizedSliceLeft(t *testing.T) {
 				Cursor: "YXJyYXljb25uZWN0aW9uOjQ=",
 			},
 		},
+		Nodes: []interface{}{"D", "E"},
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjM=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjQ=",
 			HasPreviousPage: false,
 			HasNextPage:     false,
 		},
+		TotalCount: len(arrayConnectionTestLetters[3:5]),
 	}
 
 	result := relay.ConnectionFromArraySlice(
@@ -907,12 +957,14 @@ func TestConnectionFromArraySlice_UndersizedSliceRight(t *testing.T) {
 				Cursor: "YXJyYXljb25uZWN0aW9uOjM=",
 			},
 		},
+		Nodes: []interface{}{"C", "D"},
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjI=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjM=",
 			HasPreviousPage: false,
 			HasNextPage:     true,
 		},
+		TotalCount: len(arrayConnectionTestLetters[2:4]),
 	}
 
 	result := relay.ConnectionFromArraySlice(
@@ -942,12 +994,14 @@ func TestConnectionFromArraySlice_UndersizedSliceBoth(t *testing.T) {
 				Cursor: "YXJyYXljb25uZWN0aW9uOjM=",
 			},
 		},
+		Nodes: []interface{}{"D"},
 		PageInfo: relay.PageInfo{
 			StartCursor:     "YXJyYXljb25uZWN0aW9uOjM=",
 			EndCursor:       "YXJyYXljb25uZWN0aW9uOjM=",
 			HasPreviousPage: false,
 			HasNextPage:     true,
 		},
+		TotalCount: len(arrayConnectionTestLetters[3:4]),
 	}
 
 	result := relay.ConnectionFromArraySlice(

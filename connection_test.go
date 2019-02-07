@@ -3,17 +3,22 @@ package relay_test
 import (
 	"github.com/graphql-go/graphql"
 	"github.com/graphql-go/graphql/testutil"
-	"github.com/graphql-go/relay"
+	"github.com/seripap/relay"
 	"reflect"
 	"testing"
 )
 
+type User struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+}
+
 var connectionTestAllUsers = []interface{}{
-	&user{Name: "Dan"},
-	&user{Name: "Nick"},
-	&user{Name: "Lee"},
-	&user{Name: "Joe"},
-	&user{Name: "Tim"},
+	&User{Name: "Dan"},
+	&User{Name: "Nick"},
+	&User{Name: "Lee"},
+	&User{Name: "Joe"},
+	&User{Name: "Tim"},
 }
 var connectionTestUserType *graphql.Object
 var connectionTestQueryType *graphql.Object

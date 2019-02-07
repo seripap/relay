@@ -6,10 +6,10 @@ import (
 	"reflect"
 	"testing"
 
+	"context"
 	"github.com/graphql-go/graphql"
 	"github.com/graphql-go/graphql/testutil"
-	"github.com/graphql-go/relay"
-	"golang.org/x/net/context"
+	"github.com/seripap/relay"
 )
 
 type photo2 struct {
