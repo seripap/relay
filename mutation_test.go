@@ -197,12 +197,9 @@ func TestMutation_IntrospectsCorrectly_ContainsCorrectInput(t *testing.T) {
 					map[string]interface{}{
 						"name": "clientMutationId",
 						"type": map[string]interface{}{
-							"name": nil,
-							"kind": "NON_NULL",
-							"ofType": map[string]interface{}{
-								"name": "String",
-								"kind": "SCALAR",
-							},
+							"name":   "String",
+							"kind":   "SCALAR",
+							"ofType": nil,
 						},
 					},
 				},
